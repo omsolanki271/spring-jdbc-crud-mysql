@@ -37,6 +37,7 @@ public class App
         */
         
         //Third Step update data
+        /*
         StudentDao studentDao = context.getBean("studentDao",StudentDao.class);
         
         Student student = new Student();
@@ -46,5 +47,16 @@ public class App
         
         int result = studentDao.change(student);
         System.out.println(result + "Row updated....");
+        */
+        
+        //Fourth Step update data
+        
+       StudentDao dao =  context.getBean("studentDao",StudentDao.class);
+       
+       Student student = new Student();
+       student.setStid(107);
+       int del = dao.delete(student);
+       System.out.println(del + " Rows deleted....");
+       
     }
 }
