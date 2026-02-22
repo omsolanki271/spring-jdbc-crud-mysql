@@ -22,9 +22,9 @@ public class StudentDaoImp implements StudentDao {
 	}
 
 	@Override
-	public int delete(Student student) {
+	public int delete(int studentId) {
 		String query = "delete from student where stid=?";
-		int res = this.jdbcTemplate.update(query,student.getStid());
+		int res = this.jdbcTemplate.update(query,studentId);
 		return res;
 	}	
 	

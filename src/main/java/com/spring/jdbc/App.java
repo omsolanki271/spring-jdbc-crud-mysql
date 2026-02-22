@@ -49,13 +49,12 @@ public class App
         System.out.println(result + "Row updated....");
         */
         
-        //Fourth Step update data
+        //Fourth Step delete data
         
        StudentDao dao =  context.getBean("studentDao",StudentDao.class);
        
-       Student student = new Student();
-       student.setStid(107);
-       int del = dao.delete(student);
+       
+       int del = dao.delete(106);
        System.out.println(del + " Rows deleted....");
        
     }
