@@ -1,51 +1,42 @@
-package com.spring.jdbc;
+package com.spring.jdbc.entites;
 
 public class Student {
 	private int stid;
 	private String stnm;
 	private String city;
-	
-	
-	public Student()
-	{
+
+	public Student() {
 		super();
 	}
-	
-	public Student(int stid,String stnm ,String city)
-	{
+
+	public Student(int stid, String stnm, String city) {
 		super();
 		this.stid = stid;
 		this.stnm = stnm;
 		this.city = city;
 	}
-	
-	public int getStid()
-	{
+
+	public int getStid() {
 		return stid;
 	}
-	
-	public void setStid(int stid)
-	{
+
+	public void setStid(int stid) {
 		this.stid = stid;
 	}
-	
-	public String getStnm()
-	{
+
+	public String getStnm() {
 		return stnm;
 	}
-	
-	public void setStnm(String stnm)
-	{
+
+	public void setStnm(String stnm) {
 		this.stnm = stnm;
 	}
-	
-	public String getCity()
-	{
+
+	public String getCity() {
 		return city;
 	}
-	
-	public void setCity(String city)
-	{
+
+	public void setCity(String city) {
 		this.city = city;
 	}
 
@@ -53,5 +44,4 @@ public class Student {
 	public String toString() {
 		return "Student [stid=" + stid + ", stnm=" + stnm + ", city=" + city + "]";
 	}
-	
 }
