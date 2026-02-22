@@ -15,12 +15,16 @@ public class App
         
         ApplicationContext context = new ClassPathXmlApplicationContext("com/spring/jdbc/config.xml");
 
+        //First implement this logic 
         //This is normal way to insert data 
+        
 //        JdbcTemplate template = context.getBean("jdbcTemplate",JdbcTemplate.class);
 //        String query = "insert into student(stid,stnm,city) values(?,?,?)";        
 //        int result = template.update(query,106,"raghunath","GMC");
 //        System.out.println("number of rows inserted...."+result);
         
+        //Second step Insert data 
+        /*
         StudentDao bean = context.getBean("studentDao",StudentDao.class);
         Student student = new Student();
         student.setStid(109);
@@ -30,5 +34,17 @@ public class App
         int result = bean.insert(student);
         System.out.println("number of rows inserted... "+result);
         System.out.println(student.getStid() +" | "+ student.getStnm()+" | "+student.getCity());
+        */
+        
+        //Third Step update data
+        StudentDao studentDao = context.getBean("studentDao",StudentDao.class);
+        
+        Student student = new Student();
+        student.setStid(106);
+        student.setStnm("Ravi");
+        student.setCity("Gandhinagar");
+        
+        int result = studentDao.change(student);
+        System.out.println(result + "Row updated....");
     }
 }

@@ -10,10 +10,17 @@ public class StudentDaoImp implements StudentDao {
 	@Override
 	public int insert(Student student) {
 		String query = "insert into student(stid,stnm,city) values(?,?,?)";
-		int r = jdbcTemplate.update(query,student.getStid(),student.getStnm(),student.getCity());
-		return r;
+		int res = this.jdbcTemplate.update(query,student.getStid(),student.getStnm(),student.getCity());
+		return res;
 	}
 
+	@Override
+	public int change(Student student) {
+		String query = "update student set stnm=?, city=? where stid=?";
+		int res = this.jdbcTemplate.update(query,student.getStnm(),student.getCity(),student.getStid());
+		return res;
+	}
+	
 	public JdbcTemplate getJdbcTemplate() {
 		return jdbcTemplate;
 	}
@@ -21,4 +28,6 @@ public class StudentDaoImp implements StudentDao {
 	public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
 		this.jdbcTemplate = jdbcTemplate;
 	}
+
+	
 }
