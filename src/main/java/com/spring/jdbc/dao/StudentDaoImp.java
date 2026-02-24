@@ -1,6 +1,14 @@
 package com.spring.jdbc.dao;
+import java.util.List;
+import org.springframework.jdbc.core.RowMapper;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+
 
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
+
 import com.spring.jdbc.entites.Student;
 
 
@@ -36,4 +44,41 @@ public class StudentDaoImp implements StudentDao {
 		this.jdbcTemplate = jdbcTemplate;
 	}
 
+	@Override
+	public Student getStudent(int studentId) {
+
+		String query = "select * from student where stid=?";
+
+		RowMapper<Student> rowMapper = new RowMapper<Student>() {
+			public Student mapRow(ResultSet rs, int rowNum) throws SQLException {
+				Student s = new Student();
+				s.setStid(rs.getInt("stid"));
+				s.setStnm(rs.getString("stnm"));
+				s.setCity(rs.getString("city"));
+				return s;
+			}
+		};
+
+		Student student = this.jdbcTemplate.queryForObject(query, rowMapper, studentId);
+		return student;
+	}
+
+	@Override
+	public List<Student> getAllStudents() {
+
+		String query = "select * from student";
+
+		RowMapper<Student> rowMapper = new RowMapper<Student>() {
+			public Student mapRow(ResultSet rs, int rowNum) throws SQLException {
+				Student s = new Student();
+				s.setStid(rs.getInt("stid"));
+				s.setStnm(rs.getString("stnm"));
+				s.setCity(rs.getString("city"));
+				return s;
+			}
+		};
+
+		List<Student> students = this.jdbcTemplate.query(query, rowMapper);
+		return students;
+	}
 }
