@@ -46,7 +46,22 @@ public class App {
 
 				System.out.println("Enter City:");
 				String city1 = sc.nextLine();
+				
+				if (id1 <= 0) {
+				    System.out.println("Invalid Id. Must be greater than 0.");
+				    break;
+				}
 
+				if (name1.trim().isEmpty()) {
+				    System.out.println("Name cannot be empty.");
+				    break;
+				}
+
+				if (city1.trim().isEmpty()) {
+				    System.out.println("City cannot be empty.");
+				    break;
+				}
+				
 				Student student1 = new Student(id1, name1, city1);
 				int insertResult = dao.insert(student1);
 				System.out.println(insertResult + " Row inserted");
@@ -62,7 +77,22 @@ public class App {
 
 				System.out.println("Enter New City:");
 				String city2 = sc.nextLine();
+				
+				if (id2 <= 0) {
+				    System.out.println("Invalid Id. Must be greater than 0.");
+				    break;
+				}
 
+				if (name2.trim().isEmpty()) {
+				    System.out.println("Name cannot be empty.");
+				    break;
+				}
+
+				if (city2.trim().isEmpty()) {
+				    System.out.println("City cannot be empty.");
+				    break;
+				}
+				
 				Student student2 = new Student(id2, name2, city2);
 				int updateResult = dao.change(student2);
 				System.out.println(updateResult + " Row updated");
