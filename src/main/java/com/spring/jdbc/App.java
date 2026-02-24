@@ -107,15 +107,18 @@ public class App {
 				break;
 
 			case 4:
-				List<Student> students = dao.getAllStudents();
+				
+				System.out.println("Enter Id:");
+				int id = sc.nextInt();
 
-				if (students.isEmpty()) {
-					System.out.println("No students found.");
-				} else {
-					for (Student st : students) {
-						System.out.println(st);
-					}
-				}
+				Student student = dao.getStudent(id);
+				System.out.println(student);
+				/*
+				 * List<Student> students = dao.getAllStudents();
+				 * 
+				 * if (students.isEmpty()) { System.out.println("No students found."); } else {
+				 * for (Student st : students) { System.out.println(st); } }
+				 */
 				break;
 
 			case 5:

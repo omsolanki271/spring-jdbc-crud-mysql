@@ -9,6 +9,10 @@ public interface StudentDao {
 	public int change(Student student);
 	public int delete(int StudentId);
 	
-	public List<Student> getAllStudents();
+	//use only single student 
+	public Student getStudent(int StudetnId);
+	
+	
+	/* public List<Student> getAllStudents(); */
 	
 }
