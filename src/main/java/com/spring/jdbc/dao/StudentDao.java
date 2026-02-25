@@ -11,9 +11,12 @@ public interface StudentDao {
 	
 	//use only single student object
 	public Student getSingleStudent(int StudentId);
+	
+	/* public List<Student> getAllStudents(); */
+	
 	public List<Student> getAllStudent();
 	
 	
-	/* public List<Student> getAllStudents(); */
+	
 	
 }
