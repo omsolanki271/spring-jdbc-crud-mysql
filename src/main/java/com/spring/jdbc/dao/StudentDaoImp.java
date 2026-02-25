@@ -35,33 +35,46 @@ public class StudentDaoImp implements StudentDao {
 		int res = this.jdbcTemplate.update(query,studentId);
 		return res;
 	}	
-	//use for only one studetn value get 
-	@Override
-	public Student getStudent(int StudentId) {
-		String query = "select * from student where stid=?";
 
-		// implimentation in other class other wise create Annonoumn class 
-		RowMapper<Student> rowMapper = new RowMapperImp();
-		Student stud = this.jdbcTemplate.queryForObject(query,rowMapper,StudentId);
-		return stud;
+	//use for only one student value get
+	
+	@Override
+	public Student getSingleStudent(int StudentId) {
+		String query = "select * from student where stid = ?";
+		
+		//Without Anonymous class 
+		
+		/*
+		 * RowMapper<Student> rowMapper = new RowMapperImp(); 
+		 * Student queryForObject = this.jdbcTemplate.queryForObject(query, rowMapper ,StudentId);
+		 */
+		
+		//With Anonymous class
+		
+		 Student queryForObj = this.jdbcTemplate.queryForObject(query,new RowMapper<Student>() {
+
+			@Override
+			public Student mapRow(ResultSet rs, int rowNum) throws SQLException {
+				Student student = new Student();
+				student.setStid(rs.getInt(1));
+				student.setStnm(rs.getString(2));
+				student.setCity(rs.getString(3));
+				return student;
+			}
+		
+		},StudentId);
+		
+		return queryForObj;
 	}
 	
+	//Multiple student value get
 	
-	
-	/*
-	 * @Override public List<Student> getAllStudents() {
-	 * 
-	 * String query = "select * from student";
-	 * 
-	 * RowMapper<Student> rowMapper = new RowMapper<Student>() {
-	 * 
-	 * public Student mapRow(ResultSet rs, int rowNum) throws SQLException {
-	 * 
-	 * Student s = new Student(); s.setStid(rs.getInt("stid"));
-	 * s.setStnm(rs.getString("stnm")); s.setCity(rs.getString("city"));
-	 * 
-	 * return s; } }; return this.jdbcTemplate.query(query, rowMapper); }
-	 */	
+	@Override
+	public List<Student> getAllStudent() {
+		String query = "select * from student";
+		List<Student> allstd = this.jdbcTemplate.query(query, new RowMapperImp());
+		return allstd;
+	}
 	
 	public JdbcTemplate getJdbcTemplate() {
 		return jdbcTemplate;
@@ -71,9 +84,21 @@ public class StudentDaoImp implements StudentDao {
 		this.jdbcTemplate = jdbcTemplate;
 	}
 
-	
-
-	
 
 	
 }
+
+/*
+ * @Override public List<Student> getAllStudents() {
+ * 
+ * String query = "select * from student";
+ * 
+ * RowMapper<Student> rowMapper = new RowMapper<Student>() {
+ * 
+ * public Student mapRow(ResultSet rs, int rowNum) throws SQLException {
+ * 
+ * Student s = new Student(); s.setStid(rs.getInt("stid"));
+ * s.setStnm(rs.getString("stnm")); s.setCity(rs.getString("city"));
+ * 
+ * return s; } }; return this.jdbcTemplate.query(query, rowMapper); }
+ */	

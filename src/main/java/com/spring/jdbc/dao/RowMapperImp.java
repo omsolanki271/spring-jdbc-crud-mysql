@@ -11,7 +11,6 @@ public class RowMapperImp implements RowMapper<Student>{
 
 	@Override
 	public Student mapRow(ResultSet rs, int rowNum) throws SQLException {
-	
 		Student student = new Student();
 		student.setStid(rs.getInt(1));
 		student.setStnm(rs.getString(2));

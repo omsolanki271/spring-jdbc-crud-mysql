@@ -9,8 +9,9 @@ public interface StudentDao {
 	public int change(Student student);
 	public int delete(int StudentId);
 	
-	//use only single student 
-	public Student getStudent(int StudetnId);
+	//use only single student object
+	public Student getSingleStudent(int StudentId);
+	public List<Student> getAllStudent();
 	
 	
 	/* public List<Student> getAllStudents(); */
