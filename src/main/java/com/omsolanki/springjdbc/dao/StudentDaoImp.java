@@ -1,7 +1,10 @@
-package com.spring.jdbc.dao;
+package com.omsolanki.springjdbc.dao;
+
 import java.util.List;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
+
+import com.omsolanki.springjdbc.entities.Student;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -10,75 +13,78 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
-import com.spring.jdbc.entites.Student;
-
 @Component("studentDao")
 public class StudentDaoImp implements StudentDao {
 
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
-	
+
 	@Override
 	public int insert(Student student) {
 		String query = "insert into student(stid,stnm,city) values(?,?,?)";
-		int res = this.jdbcTemplate.update(query,student.getStid(),student.getStnm(),student.getCity());
+		int res = this.jdbcTemplate.update(query, student.getStid(), student.getStnm(), student.getCity());
 		return res;
 	}
 
 	@Override
 	public int change(Student student) {
 		String query = "update student set stnm=?, city=? where stid=?";
-		int res = this.jdbcTemplate.update(query,student.getStnm(),student.getCity(),student.getStid());
+		int res = this.jdbcTemplate.update(query, student.getStnm(), student.getCity(), student.getStid());
 		return res;
 	}
 
 	@Override
 	public int delete(int studentId) {
 		String query = "delete from student where stid=?";
-		int res = this.jdbcTemplate.update(query,studentId);
+		int res = this.jdbcTemplate.update(query, studentId);
 		return res;
-	}	
+	}
 
-	//use for only one student value get
-	
+	// use for only one student value get
+
 	@Override
 	public Student getSingleStudent(int StudentId) {
 		String query = "select * from student where stid = ?";
-		
-		//Without Anonymous class 
-		
-		/*
-		 * RowMapper<Student> rowMapper = new RowMapperImp(); 
-		 * Student queryForObject = this.jdbcTemplate.queryForObject(query, rowMapper ,StudentId);
-		 */
-		
-		//With Anonymous class
-		
-		 Student queryForObj = this.jdbcTemplate.queryForObject(query,new RowMapper<Student>() {
 
-			@Override
-			public Student mapRow(ResultSet rs, int rowNum) throws SQLException {
-				Student student = new Student();
-				student.setStid(rs.getInt(1));
-				student.setStnm(rs.getString(2));
-				student.setCity(rs.getString(3));
-				return student;
-			}
-		
-		},StudentId);
-		
-		return queryForObj;
+		// Without Anonymous class
+
+		/*
+		 * RowMapper<Student> rowMapper = new RowMapperImp(); Student queryForObject =
+		 * this.jdbcTemplate.queryForObject(query, rowMapper ,StudentId);
+		 */
+
+		// With Anonymous class
+
+		try {
+			Student queryForObj = this.jdbcTemplate.queryForObject(query, new RowMapper<Student>() {
+
+				@Override
+				public Student mapRow(ResultSet rs, int rowNum) throws SQLException {
+					Student student = new Student();
+					student.setStid(rs.getInt(1));
+					student.setStnm(rs.getString(2));
+					student.setCity(rs.getString(3));
+					return student;
+				}
+
+			}, StudentId);
+
+			return queryForObj;
+		} catch (Exception e) {
+			System.out.println("Student Not Found with Id: " + StudentId);
+			return null;
+		}
 	}
-	
-	//Multiple student value get
-	
+
+	// Multiple student value get
+
 	@Override
 	public List<Student> getAllStudent() {
 		String query = "select * from student";
 		List<Student> allstd = this.jdbcTemplate.query(query, new RowMapperImp());
 		return allstd;
 	}
-	
+
 	public JdbcTemplate getJdbcTemplate() {
 		return jdbcTemplate;
 	}
@@ -87,10 +93,7 @@ public class StudentDaoImp implements StudentDao {
 		this.jdbcTemplate = jdbcTemplate;
 	}
 
-
-	
 }
-
 /*
  * @Override public List<Student> getAllStudents() {
  * 
@@ -104,4 +107,4 @@ public class StudentDaoImp implements StudentDao {
  * s.setStnm(rs.getString("stnm")); s.setCity(rs.getString("city"));
  * 
  * return s; } }; return this.jdbcTemplate.query(query, rowMapper); }
- */	
+ */

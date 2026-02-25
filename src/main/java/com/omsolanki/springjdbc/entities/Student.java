@@ -1,4 +1,4 @@
-package com.spring.jdbc.entites;
+package com.omsolanki.springjdbc.entities;
 
 public class Student {
 	private int stid;

@@ -1,4 +1,4 @@
-package com.spring.jdbc;
+package com.omsolanki.springjdbc.config;
 
 import javax.sql.DataSource;
 
@@ -8,11 +8,11 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
-import com.spring.jdbc.dao.StudentDao;
-import com.spring.jdbc.dao.StudentDaoImp;
+import com.omsolanki.springjdbc.dao.StudentDao;
+import com.omsolanki.springjdbc.dao.StudentDaoImp;
 
 @Configuration
-@ComponentScan(basePackages = "com.spring.jdbc.dao")
+@ComponentScan(basePackages = "com.omsolanki.springjdbc.dao")
 public class JavaConfig {
 		
 	@Bean(name={"ds"})

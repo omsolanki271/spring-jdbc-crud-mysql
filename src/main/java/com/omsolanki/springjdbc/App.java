@@ -1,4 +1,4 @@
-package com.spring.jdbc;
+package com.omsolanki.springjdbc;
 
 import java.util.List;
 import java.util.Scanner;
@@ -7,9 +7,9 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import com.mysql.cj.protocol.x.SyncFlushDeflaterOutputStream;
-import com.spring.jdbc.dao.StudentDao;
-import com.spring.jdbc.entites.Student;
+import com.omsolanki.springjdbc.config.JavaConfig;
+import com.omsolanki.springjdbc.dao.StudentDao;
+import com.omsolanki.springjdbc.entities.Student;
 
 public class App {
 
@@ -21,7 +21,7 @@ public class App {
 
 		/*
 		 * ApplicationContext context = new
-		 * ClassPathXmlApplicationContext("com/spring/jdbc/config.xml");
+		 * ClassPathXmlApplicationContext("com/omsolanki/springjdbc/config/config.xml");
 		 */
 
 		// for Annotation configuration with JavaConfig file
@@ -135,7 +135,10 @@ public class App {
 				}
 				
 				Student singStudent = dao.getSingleStudent(id);
-				System.out.println(singStudent);
+				if (singStudent != null) {
+				    System.out.println(singStudent);
+				}
+
 				
 				/*
 				 * List<Student> students = dao.getAllStudents();
@@ -150,9 +153,16 @@ public class App {
 				System.out.println("--------------");
 				System.out.println(students);
 				System.out.println("--------------");
-				for (Student s: students)
+				if(students.isEmpty())
 				{
-					System.out.println(s);
+					System.out.println("No Student Found");
+				}
+				else
+				{
+					for (Student s: students)
+					{
+						System.out.println(s);
+					}
 				}
 				break;
 			case 6:
