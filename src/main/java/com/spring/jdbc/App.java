@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.mysql.cj.protocol.x.SyncFlushDeflaterOutputStream;
@@ -16,8 +17,17 @@ public class App {
 
 		System.out.println("My program started .....");
 
-		ApplicationContext context = new ClassPathXmlApplicationContext("com/spring/jdbc/config.xml");
+		// for xml configuration 
 
+		/*
+		 * ApplicationContext context = new
+		 * ClassPathXmlApplicationContext("com/spring/jdbc/config.xml");
+		 */
+
+		// for Annotation configuration with JavaConfig file
+		
+		ApplicationContext context = new AnnotationConfigApplicationContext(JavaConfig.class);
+		
 		StudentDao dao = context.getBean("studentDao", StudentDao.class);
 
 		Scanner sc = new Scanner(System.in);
